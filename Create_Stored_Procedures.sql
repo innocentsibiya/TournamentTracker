@@ -1,0 +1,1 @@
+--Please note that this file is for creating the stored procedures used in the application logic
