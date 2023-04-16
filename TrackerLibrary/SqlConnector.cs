@@ -10,7 +10,7 @@ namespace TrackerLibrary
     {
         public PrizeModel CreatePrize(PrizeModel model)
         {
-            return model;
+            throw new NotImplementedException();
         }
     }
 }
