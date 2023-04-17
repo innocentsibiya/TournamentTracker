@@ -10,15 +10,15 @@ namespace TrackerLibrary
     {
         public static List<IDataConnection> Connections { get; private set; }
 
-        public static void InitializeConnections(bool database, bool textFiles) 
+        public static void InitializeConnections(bool database, bool textFiles)
         {
             if (database)
-            { 
-            //TODO - do something
-            }
-            if (textFiles) 
             {
-            //TODO - do something
+                //TODO - do something
+            }
+            if (textFiles)
+            {
+                //TODO - do something
             }
         }
     }
