@@ -31,7 +31,7 @@ namespace TrackerLibrary.DataAccess
             }
         }
 
-        //TODO - Make the CreatePrize method actually save to the database
+
         /// <summary>
         /// Saves a new prize to the database
         /// </summary>
@@ -53,6 +53,30 @@ namespace TrackerLibrary.DataAccess
 
                 model.Id = p.Get<int>("@Id");
 
+                return model;
+            }
+        }
+
+        public TeamModel CreateTeam(TeamModel model)
+        {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConString(db)))
+            {
+                var p = new DynamicParameters();
+                p.Add("@TeamName", model.TeamName);
+                p.Add("@Id", 0, dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                connection.Execute("dbo.spTeam_Insert", p, commandType: CommandType.StoredProcedure);
+
+                model.Id = p.Get<int>("@Id");
+
+                foreach (PersonModel tm in model.TeamMembers)
+                {
+                    p = new DynamicParameters();
+                    p.Add("@TeamName", model.Id);
+                    p.Add("@PersonId", tm.Id);
+
+                    connection.Execute("dbo.spTeamMembers_Insert", p, commandType: CommandType.StoredProcedure);
+                }
                 return model;
             }
         }

@@ -49,3 +49,54 @@ BEGIN
 	select @Id = SCOPE_IDENTITY();
 END
 GO
+
+
+
+--Stored procedure dbo.spPeople_GetAll which returns all the people
+
+
+
+CREATE PROCEDURE dbo.spPeople_GetAll
+AS
+BEGIN
+	select *
+	  from dbo.People;
+END
+GO
+
+
+
+--Stored procedure dbo.spTeam_Insert which stores the tournaments teams
+
+
+
+CREATE PROCEDURE dbo.spTeam_Insert
+	@TeamName nvarchar(100),
+	@Id int = 0 output
+AS
+BEGIN
+	insert into dbo.Teams(TeamName)
+	values (@TeamName);
+
+	select @Id = SCOPE_IDENTITY();
+END
+GO
+
+
+
+--Stored procedure dbo.spTeam_Insert which stores the team Members
+
+
+
+CREATE PROCEDURE dbo.spTeamMembers_Insert
+	@TeamId int,
+	@PersonId int,
+	@Id int = 0 output
+AS
+BEGIN
+	insert into dbo.TeamMembers(TeamId,PersonId)
+	values (@TeamId,@PersonId);
+
+	select @Id = SCOPE_IDENTITY();
+END
+GO
