@@ -128,3 +128,81 @@ BEGIN
 	  where m.TeamId = @TeamId;
 END
 GO
+
+--Stored procedure dbo.spTournaments_Insert which stores the tournaments
+
+
+
+CREATE PROCEDURE dbo.spTournaments_Insert
+	@TournamentName nvarchar(200),
+	@EntryFee money
+AS
+BEGIN
+
+	SET NOCOUNT ON;
+
+    insert into dbo.Tournaments(TournamentName, EntryFee, Active)
+	values (@TournamentName,@EntryFee,1);
+END
+GO
+
+--altered dbo.spTournaments_Insert to include Id
+
+
+ALTER PROCEDURE dbo.spTournaments_Insert
+	@TournamentName nvarchar(200),
+	@EntryFee money,
+	@Id int = 0 output
+AS
+BEGIN
+
+	SET NOCOUNT ON;
+
+    insert into dbo.Tournaments(TournamentName, EntryFee, Active)
+	values (@TournamentName,@EntryFee,1);
+
+	select @Id = SCOPE_IDENTITY();
+END
+GO
+
+
+--Stored procedure dbo.spTournamentPrizes_Insert which stores the tournament prizes
+
+
+CREATE PROCEDURE dbo.spTournamentPrizes_Insert
+@TournamentId int,
+@PrizeId int,
+@Id int = 0 output
+AS
+BEGIN
+
+	SET NOCOUNT ON;
+
+    insert into dbo.TournamentPrizes(TournamentId,PrizeId)
+	values(@TournamentId,@PrizeId);
+
+	select @Id = SCOPE_IDENTITY();
+END
+GO
+
+
+
+--Stored procedure dbo.spTournamentPrizes_Insert which stores the tournament entries
+
+
+
+CREATE PROCEDURE dbo.spTournamentEntries_Insert
+@TournamentId int,
+@TeamId int,
+@Id int = 0 output
+AS
+BEGIN
+
+	SET NOCOUNT ON;
+
+    insert into dbo.TournamentEntries(TournamentId,TeamId)
+	values(@TournamentId,@TeamId);
+
+	select @Id = SCOPE_IDENTITY();
+END
+GO
