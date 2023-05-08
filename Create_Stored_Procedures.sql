@@ -206,3 +206,47 @@ BEGIN
 	select @Id = SCOPE_IDENTITY();
 END
 GO
+
+
+
+--Stored procedure dbo.spMatchups_Insert which stores the tournament matchups
+
+
+
+CREATE PROCEDURE dbo.spMatchups_Insert
+@TournamentId int,
+@MatchupRound int,
+@Id int = 0 output
+AS
+BEGIN
+
+	SET NOCOUNT ON;
+
+    insert into dbo.Matchups(TournamentId,MatchupRound)
+	values(@TournamentId,@MatchupRound);
+
+	select @Id = SCOPE_IDENTITY();
+END
+GO
+
+
+
+--Stored procedure dbo.spMatchupEntries_Insert which stores the tournament matchup entries
+
+
+CREATE PROCEDURE dbo.spMatchupEntries_Insert
+@MatchupId int,
+@ParentMatchupId int,
+@TeamCompetingId int,
+@Id int = 0 output
+AS
+BEGIN
+
+	SET NOCOUNT ON;
+
+    insert into dbo.MatchupEntries(MatchupId,ParentMatchupId,TeamCompetingId)
+	values(@MatchupId,@ParentMatchupId,@TeamCompetingId);
+
+	select @Id = SCOPE_IDENTITY();
+END
+GO

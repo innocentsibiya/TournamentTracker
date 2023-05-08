@@ -14,7 +14,7 @@ namespace TrackerUI
 {
     public partial class CreateTournamentForm : Form, IPrizeRequester, ITeamRequester
     {
-        List<TeamModel> availableTeams = GlobalConfig.Connection.GeatTeam_All();
+        List<TeamModel> availableTeams = GlobalConfig.Connection.GetTeam_All();
         List<TeamModel> selectedTeames = new List<TeamModel>();
         List<PrizeModel> selectedPrizes = new List<PrizeModel>();
         public CreateTournamentForm()

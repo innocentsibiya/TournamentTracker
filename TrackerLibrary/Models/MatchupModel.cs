@@ -21,7 +21,7 @@ namespace TrackerLibrary.Models
         /// <summary>
         /// The winner of this match
         /// </summary>
-        public TeamModel winner { get; set; }
+        public TeamModel Winner { get; set; }
         
         /// <summary>
         /// The numeric value of the current match up round
