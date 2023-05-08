@@ -16,10 +16,12 @@ namespace TrackerUI
     {
         private List<PersonModel> availableTeamMembers = GlobalConfig.Connection.GetPersonAll();
         private List<PersonModel> selectedTeamMembers = new List<PersonModel>();
-
-     public CreateTeamForm()
+        private ITeamRequester callingForm;
+     public CreateTeamForm(ITeamRequester caller)
         {
             InitializeComponent();
+
+            callingForm = caller;
 
             //CreateSampleData();
 
@@ -116,7 +118,7 @@ namespace TrackerUI
 
         private void removeSelectedMemberButton_Click(object sender, EventArgs e)
         {
-            PersonModel person = (PersonModel)teamMembersListBox.SelectedItem;
+             PersonModel person = (PersonModel)teamMembersListBox.SelectedItem;
 
             if (person != null)
             {
@@ -135,9 +137,11 @@ namespace TrackerUI
             team.TeamName = teamNameValue.Text;
             team.TeamMembers = selectedTeamMembers;
 
-            team = GlobalConfig.Connection.CreateTeam(team);
+            GlobalConfig.Connection.CreateTeam(team);
 
-            //TODO - if we aren't closing this form after creation, rest the form
+            callingForm.TeamComplete(team);
+
+            this.Close();
         }
     }
 }

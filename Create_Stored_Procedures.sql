@@ -100,3 +100,31 @@ BEGIN
 	select @Id = SCOPE_IDENTITY();
 END
 GO
+
+
+--Stored procedure dbo.spTeam_GetAll which get all the tournament team Members
+
+
+CREATE PROCEDURE dbo.spTeam_GetAll
+
+AS
+BEGIN
+	select *
+	   from dbo.Teams;
+END
+GO
+
+--Stored procedure dbo.spTeamMembers_GetByTeam get the team members for the passed in team Id
+
+
+CREATE PROCEDURE dbo.spTeamMembers_GetByTeam
+	@TeamId int
+AS
+BEGIN
+
+	select p.*
+	  from dbo.TeamMembers m
+	  inner join dbo.People p on m.PersonId = p.Id
+	  where m.TeamId = @TeamId;
+END
+GO
