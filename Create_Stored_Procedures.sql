@@ -250,3 +250,89 @@ BEGIN
 	select @Id = SCOPE_IDENTITY();
 END
 GO
+
+
+
+--Stored procedure dbo.spGetTournament_All which get all the active tournaments
+
+
+CREATE PROCEDURE dbo.spGetTournament_All 
+
+AS
+BEGIN
+	SET NOCOUNT ON;
+     SELECT *
+	   from dbo.Tournaments
+	  where active = 1;
+END
+GO
+
+
+
+--Stored procedure dbo.spPrizes_GetByTournament which get all the tournament prizes
+
+
+
+CREATE PROCEDURE dbo.spPrizes_GetByTournament
+@TournamentId int
+AS
+BEGIN
+	SET NOCOUNT ON;
+     SELECT p.*
+	   from dbo.Prizes p
+	  inner join dbo.TournamentPrizes t on p.id = t.PrizeId
+	  where t.TournamentId = @TournamentId
+END
+GO
+
+
+
+--Stored procedure dbo.spTeam_GetByTournament which get all the tournament teams
+
+
+
+CREATE PROCEDURE dbo.spTeam_GetByTournament
+@TournamentId int
+AS
+BEGIN
+	SET NOCOUNT ON;
+     SELECT t.*
+	   from dbo.Teams t
+	  inner join dbo.TournamentEntries e on t.id = e.TeamId
+	  where e.TournamentId = @TournamentId
+END
+GO
+
+
+
+--Stored procedure dbo.spMatchup_GetByTournament which get all the tournament matchups
+
+
+
+CREATE PROCEDURE dbo.spMatchup_GetByTournament
+@TournamentId int
+AS
+BEGIN
+	SET NOCOUNT ON;
+     SELECT *
+	   from dbo.Matchups 
+	  where TournamentId = @TournamentId
+END
+GO
+
+
+
+--Stored procedure dbo.spMatchupEntries_GetByMatchup which get all the matchup entires per matchup
+
+
+
+CREATE PROCEDURE dbo.spMatchupEntries_GetByMatchup
+@MatchupId int
+AS
+BEGIN
+	SET NOCOUNT ON;
+     SELECT *
+	   from dbo.MatchupEntries 
+	  where MatchupId = @MatchupId;
+END
+GO
